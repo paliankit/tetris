@@ -1,5 +1,9 @@
 package com.main;
 
+import com.main.mino.Block;
+import com.main.mino.Mino;
+import com.main.mino.Mino_L1;
+
 import java.awt.*;
 
 public class PlayManager {
@@ -12,6 +16,14 @@ public class PlayManager {
     public static int top_y;
     public static int bottom_y;
 
+    //Mino
+    Mino currentMino;
+    final int MINO_START_X;
+    final int MINO_START_Y;
+
+    //Others
+    public static int dropInterval = 60; // mino drops in every 60 frames , i.e. every second
+
     public PlayManager(){
 
         //main play area frame
@@ -19,10 +31,17 @@ public class PlayManager {
         right_x = left_x+WIDTH;
         top_y = 50;
         bottom_y = top_y+WIDTH;
+
+         MINO_START_X = left_x + (WIDTH/2) - Block.SIZE;
+         MINO_START_Y = top_y + Block.SIZE;
+
+        //set starting mino
+        currentMino = new Mino_L1();
+        currentMino.setXY(MINO_START_X, MINO_START_Y);
     }
 
     public void update(){
-
+        currentMino.update();
     }
 
     public void draw(Graphics2D g2){
@@ -38,6 +57,11 @@ public class PlayManager {
         g2.setFont(new Font("Arial", Font.PLAIN, 20));
         g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
         g2.drawString("NEXT", x+60, y+60);
+
+        // draw the current Mino
+        if(currentMino!=null){
+            currentMino.draw(g2);
+        }
 
 
     }
