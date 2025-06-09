@@ -1,2 +1,2 @@
 # tetris
-tetris game create in java
+tetris game created in java
